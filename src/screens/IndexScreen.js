@@ -1,9 +1,9 @@
 import React, {useContext} from 'react';
 import {View, StyleSheet, Text, FlatList, Button, TouchableOpacity} from "react-native";
 import {Context as BlogContext} from "../context/BlogContext";
-import { Feather } from '@expo/vector-icons';//expo vector icon
+import BlogSelector from "../components/BlogSelector";
 
-function IndexScreen() {
+function IndexScreen({navigation}) {
   const {state, addBlog, deleteBlog} = useContext(BlogContext);
 
   return (
@@ -14,14 +14,13 @@ function IndexScreen() {
         keyExtractor={(blogPost) => blogPost.title}
         renderItem={({item}) => {
           return (
-            <View style={styles.row}>
-              <Text style={styles.title}>
-                {item.title}
-              </Text>
-              <TouchableOpacity onPress={() => {deleteBlog(item.id)} }>
-                <Feather name="trash" style={styles.icon} />
-              </TouchableOpacity>
-            </View>
+              <BlogSelector
+                navigation={navigation}
+                id={item.id}
+                title={item.title}
+                deleteBlog={deleteBlog}
+              />
+            
           );
         }}
       />
