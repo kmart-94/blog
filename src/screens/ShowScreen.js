@@ -9,8 +9,11 @@ function ShowScreen({navigation}) {
 
   return (
     <View>
-      <Text>
+      <Text style={styles.title}>
         {blogPost.title}
+      </Text>
+      <Text style={styles.content}>
+        {blogPost.content}
       </Text>
     </View>
   );
@@ -18,7 +21,14 @@ function ShowScreen({navigation}) {
 
 const styles = StyleSheet.create(
     {
-
+      title: {
+        fontSize: 20,
+        margin: 5
+      },
+      content: {
+        fontSize: 18,
+        margin: 5
+      }
     }
 );
 
