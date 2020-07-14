@@ -1,14 +1,15 @@
 import React, {useContext} from 'react';
-import {View, StyleSheet, Text, FlatList, Button, TouchableOpacity} from "react-native";
+import {View, StyleSheet, Text, FlatList, TouchableOpacity} from "react-native";
 import {Context as BlogContext} from "../context/BlogContext";
 import BlogSelector from "../components/BlogSelector";
+import { Feather } from '@expo/vector-icons';
 
 function IndexScreen({navigation}) {
-  const {state, addBlog, deleteBlog} = useContext(BlogContext);
+  const {state, deleteBlog} = useContext(BlogContext);
 
   return (
     <View>
-      <Button title="Add Post" onPress= {() => addBlog()} />
+
       <FlatList
         data={state}
         keyExtractor={(blogPost) => blogPost.title}
@@ -20,7 +21,7 @@ function IndexScreen({navigation}) {
                 title={item.title}
                 deleteBlog={deleteBlog}
               />
-            
+
           );
         }}
       />
@@ -28,20 +29,21 @@ function IndexScreen({navigation}) {
   );
 }
 
+//used to customize our header
+IndexScreen.navigationOptions = ({navigation}) => {
+  return {
+    headerRight: () => (
+      <TouchableOpacity  onPress = {() => {navigation.navigate("Create")}}>
+        <Feather name="plus" style={styles.icon} />
+      </TouchableOpacity>
+    )
+  };
+};
+
 const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderWidth: 1,
-    borderTopWidth: 0
-  },
-  title: {
-    fontSize: 18
-  },
   icon: {
-    fontSize: 24
+    fontSize: 24,
+    marginRight: 10
   }
 });
 
