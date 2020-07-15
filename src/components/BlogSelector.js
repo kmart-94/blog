@@ -7,7 +7,7 @@ function BlogSelector({navigation, id, title, deleteBlog}) {
     <TouchableOpacity onPress = {() => {navigation.navigate("Show", {id})}}>
       <View style={styles.row}>
         <Text style={styles.title}>
-          {title}
+          {title} - {id}
         </Text>
         <TouchableOpacity onPress={() => {deleteBlog(id)} }>
           <Feather name="trash" style={styles.icon} />

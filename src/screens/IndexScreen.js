@@ -12,7 +12,9 @@ function IndexScreen({navigation}) {
 
       <FlatList
         data={state}
-        keyExtractor={(blogPost) => blogPost.title}
+        keyExtractor={(blogPost) => {
+          return blogPost.id;
+        }}
         renderItem={({item}) => {
           return (
               <BlogSelector
