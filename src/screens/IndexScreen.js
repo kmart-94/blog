@@ -1,11 +1,28 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {View, StyleSheet, Text, FlatList, TouchableOpacity} from "react-native";
 import {Context as BlogContext} from "../context/BlogContext";
 import BlogSelector from "../components/BlogSelector";
 import { Feather } from '@expo/vector-icons';
 
 function IndexScreen({navigation}) {
-  const {state, deleteBlog} = useContext(BlogContext);
+  const {state, deleteBlog, getBlogPosts} = useContext(BlogContext);
+
+  //used to run some code only once
+  useEffect(() => {
+    getBlogPosts();
+
+    //when addListener is called a listener is created, if it is not destroyed,
+    //when this app is destroyed, then you will have a memeory leak
+    const listener = navigation.addListener('didFocus', () => {
+      getBlogPosts();
+    });
+
+    //by returning a function inside useEffect, it will only get called when IndexScreen
+    //goes away permanently, (not just navigated away from)
+    return () => {
+      listener.remove();
+    };
+  }, []);
 
   return (
     <View>
